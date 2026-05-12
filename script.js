@@ -1,21 +1,21 @@
 let api = ENV.API_URL;
 
-async function createTasks(e){
+async function createTasks(e) {
     e.preventDefault();
-    
-    let taskInput=document.getElementById("taskInput");
-    let dateInput=document.getElementById("dateInput");
 
-    let originalValue=taskInput.value;
-    if(originalValue.trim().length==0){
+    let taskInput = document.getElementById("taskInput");
+    let dateInput = document.getElementById("dateInput");
+
+    let originalValue = taskInput.value;
+    if (originalValue.trim().length == 0) {
         alert("Task cannot be empty or just spaces");
-        taskInput.value="";
-        dateInput.value="";
-        return
+        taskInput.value = "";
+        dateInput.value = "";
+        return;
     }
-    
-    if(!taskInput || !dateInput){
-        alert("please enter all fields");
+
+    if (!dateInput.value.trim()) {
+        alert("Please select a date");
         return;
     }
 
@@ -24,51 +24,70 @@ async function createTasks(e){
         date: dateInput.value.trim(),
     };
 
-    await fetch(api,{
-        method: "POST",
-        headers: {
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify(newTask)
-    });
+    try {
+        let response = await fetch(api, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTask),
+        });
 
-    taskInput.value="";
-    dateInput.value="";
+        if (!response.ok) throw new Error("Failed to create task");
 
-    getTasks();
+        taskInput.value = "";
+        dateInput.value = "";
+        getTasks();
+    } catch (error) {
+        console.error("Error creating task:", error);
+        alert("Failed to add task. Check console for details.");
+    }
 }
 
-async function getTasks(){
-    let response=await fetch(api);
-    let data=await response.json();
+async function getTasks() {
+    let tasklist = document.getElementById("tasklist");
 
-    let tasklist=document.getElementById("tasklist");
-    tasklist.innerHTML="";
+    try {
+        let response = await fetch(api);
 
-    data.forEach(item => {
-        let div=document.createElement("div");
-        div.className="task-item";
-        div.innerHTML=`
-            <span><strong>${item.task}</strong> - (${item.date})</span>
-            <button onclick="deleteTask('${item.id}');">Delete</button>
-        `;
+        if (!response.ok) throw new Error("Failed to fetch tasks");
 
-        tasklist.appendChild(div);
-    });
-    
+        let data = await response.json();
+        tasklist.innerHTML = "";
+
+        if (data.length === 0) {
+            tasklist.innerHTML = `<div class="empty-msg">No tasks yet. Add one above!</div>`;
+            return;
+        }
+
+        data.forEach((item) => {
+            let div = document.createElement("div");
+            div.className = "task-item";
+            div.innerHTML = `
+                <span><strong>${item.task}</strong> - (${item.date})</span>
+                <button onclick="deleteTask('${item.id}');">Delete</button>
+            `;
+            tasklist.appendChild(div);
+        });
+    } catch (error) {
+        console.error("Error fetching tasks:", error);
+        tasklist.innerHTML = `<div class="error-msg">Failed to load tasks. Is the API running?</div>`;
+    }
 }
 
-async function deleteTask(id){
+async function deleteTask(id) {
+    try {
+        let response = await fetch(`${api}/${id}`, {
+            method: "DELETE",
+        });
 
-    let response=await fetch(`${api}/${id}`);
-    let taskToDelete=await response.json();
+        if (!response.ok) throw new Error("Failed to delete task");
 
-    console.log(taskToDelete);
-
-    await fetch(`${api}/${id}`,{ 
-        method:"DELETE"
-    });
-    getTasks();
+        getTasks();
+    } catch (error) {
+        console.error("Error deleting task:", error);
+        alert("Failed to delete task. Check console for details.");
+    }
 }
 
 getTasks();

@@ -172,6 +172,28 @@ form button:active {
     }
 }
 
+/* ── Empty / Error Messages ── */
+.empty-msg,
+.error-msg {
+    text-align: center;
+    padding: 24px 20px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    animation: slideIn 0.35s ease both;
+}
+
+.empty-msg {
+    background: rgba(255, 255, 255, 0.85);
+    color: #888;
+}
+
+.error-msg {
+    background: rgba(255, 107, 107, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
 /* ── Responsive ── */
 @media (max-width: 480px) {
     body {
