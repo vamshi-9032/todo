@@ -1,4 +1,4 @@
-let api="http://localhost:3000/tasks";
+let api = ENV.API_URL;
 
 async function createTasks(e){
     e.preventDefault();
