@@ -1,4 +1,4 @@
-let api = ENV.API_URL;
+let api = (typeof ENV !== "undefined" && ENV.API_URL) || "https://todo-0dg7.onrender.com/tasks";
 
 async function createTasks(e) {
     e.preventDefault();
