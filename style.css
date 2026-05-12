@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+}
+
+/* ── Heading ── */
+h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+
+/* ── Form ── */
+form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 20px 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    width: min(560px, 100%);
+}
+
+input[type="text"],
+input[type="date"] {
+    padding: 12px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+input[type="text"] {
+    flex: 1;
+    min-width: 180px;
+}
+
+input[type="date"] {
+    width: 160px;
+}
+
+input[type="text"]::placeholder {
+    color: #999;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus {
+    border-color: #667eea;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25);
+}
+
+form button {
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #ffffff, #f0f0f0);
+    color: #764ba2;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+}
+
+form button:active {
+    transform: translateY(0);
+}
+
+/* ── Task List ── */
+#tasklist {
+    width: min(560px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ── Task Item ── */
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    animation: slideIn 0.35s ease both;
+}
+
+.task-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.task-item span {
+    flex: 1;
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+.task-item span strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.task-item button {
+    padding: 8px 18px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.task-item button:hover {
+    background: linear-gradient(135deg, #ee5a24, #d63031);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(238, 90, 36, 0.35);
+}
+
+/* ── Slide-in Animation ── */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    body {
+        padding: 40px 14px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    form {
+        padding: 16px;
+        flex-direction: column;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        width: 100%;
+    }
+
+    form button {
+        width: 100%;
+    }
+}
