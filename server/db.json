@@ -1,4 +1,15 @@
 {
-  "tasks": [],
+  "tasks": [
+    {
+      "task": "harish",
+      "date": "2026-05-12",
+      "id": "i-doQ72T9ig"
+    },
+    {
+      "task": "vamshi",
+      "date": "2026-05-12",
+      "id": "FhLoZFUbzmI"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
